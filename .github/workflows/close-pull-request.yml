@@ -1,0 +1,20 @@
+name: Close pull request
+
+on:
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  close:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Point to the monorepo
+        run: gh pr close "$NUMBER" --repo "$REPOSITORY" --comment "$MESSAGE"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUMBER: ${{ github.event.pull_request.number }}
+          REPOSITORY: ${{ github.repository }}
+          MESSAGE: This repository is a read-only split of https://github.com/stewart-php/stewart. Please open the pull request there.
