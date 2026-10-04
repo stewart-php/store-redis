@@ -4,8 +4,8 @@
     "type": "library",
     "license": "MIT",
     "require": {
-        "php": ">=8.4.1",
-        "amphp/amp": "^3.1",
+        "php": ">=8.5",
+        "amphp/amp": "^3.1.1",
         "amphp/redis": "^2.0.4",
         "revolt/event-loop": "^1.0.9",
         "stewart-php/contracts": "self.version",
@@ -19,7 +19,9 @@
         "stewart-php/testing": "self.version"
     },
     "conflict": {
-        "amphp/dns": "<2.2"
+        "amphp/cache": "<2.0.1",
+        "amphp/dns": "<2.2",
+        "daverandom/libdns": "<2.1"
     },
     "autoload": {
         "psr-4": {
