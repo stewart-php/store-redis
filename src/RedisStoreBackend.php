@@ -11,6 +11,7 @@ use Amp\Redis\RedisClient;
 use Amp\Redis\RedisException;
 use Closure;
 use Generator;
+use Stewart\Contracts\Exception\StoreError;
 use Stewart\Contracts\Exception\StoreException;
 use Stewart\Contracts\Time\Duration;
 use Stewart\Store\StoreBackend;
@@ -120,9 +121,9 @@ final class RedisStoreBackend implements StoreBackend
             // The command still runs; its reply is discarded when it arrives.
             $pending->ignore();
 
-            throw StoreException::timedOut($target, $this->timing->timeout, $e);
+            throw StoreException::createForReason(StoreError::TimedOut, $e, target: $target, timeout: (string) $this->timing->timeout);
         } catch (QueryException $e) {
-            throw StoreException::refused($target, self::withoutErrorCode($e->getMessage()), $e);
+            throw StoreException::createForReason(StoreError::Refused, $e, target: $target, detail: self::withoutErrorCode($e->getMessage()));
         } catch (RedisException $e) {
             throw StoreException::unreachable($target, $e->getMessage(), $e);
         }
