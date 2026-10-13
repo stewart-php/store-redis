@@ -3,6 +3,12 @@
     "description": "Redis backend for Stewart's key-value storage. Non-blocking, over amphp",
     "type": "library",
     "license": "MIT",
+    "homepage": "https://github.com/stewart-php/stewart",
+    "support": {
+        "issues": "https://github.com/stewart-php/stewart/issues",
+        "source": "https://github.com/stewart-php/stewart",
+        "docs": "https://stewart-php.github.io/docs/"
+    },
     "require": {
         "php": ">=8.5",
         "amphp/amp": "^3.1.1",
