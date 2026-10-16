@@ -13,6 +13,7 @@
         "php": ">=8.5",
         "amphp/amp": "^3.1.1",
         "amphp/redis": "^2.0.4",
+        "amphp/socket": "^2.4",
         "stewart-php/contracts": "self.version",
         "stewart-php/store": "self.version",
         "stewart-php/support": "self.version",

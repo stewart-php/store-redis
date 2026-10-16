@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Stewart\Store\Redis;
 
+use Amp\Redis\Connection\SocketRedisConnector;
 use Amp\Redis\RedisConfig;
 use Amp\Redis\RedisException;
+use Amp\Socket\ConnectContext;
 use Stewart\Store\Exception\StoreSetupException;
 use Stewart\Store\StoreBackend;
 use Stewart\Store\StoreBackendFactory;
@@ -45,6 +47,8 @@ final readonly class RedisStoreBackendFactory implements StoreBackendFactory
             throw StoreSetupException::dsnInvalid($dsn->reveal());
         }
 
-        return new RedisStoreBackend(createRedisClient($config), $dsn, $timing, $this->deadlines);
+        $connector = new SocketRedisConnector($config->getConnectUri(), new ConnectContext()->withConnectTimeout($config->getTimeout())->withTcpNoDelay());
+
+        return new RedisStoreBackend(createRedisClient($config, $connector), $dsn, $timing, $this->deadlines);
     }
 }
